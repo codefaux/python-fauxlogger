@@ -5,7 +5,7 @@ A dead simple, lightweight, zero-dependency Python logging helper with readable,
 ## Install
 
 ```bash
-pip install -e .
+pip install .
 ```
 
 ## Usage
