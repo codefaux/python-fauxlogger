@@ -43,7 +43,10 @@ def msg(message, stack_offset=1):
         case list():
             message_list = message
         case dict():
-            message_list = [f"{key}: {value}" for key, value in sorted(message.items())]
+            message_list = [
+                f"'{key}': {value}{type(value)}"
+                for key, value in sorted(message.items())
+            ]
         case _:
             message_list = [line.strip() for line in message.split("\n")]
 
