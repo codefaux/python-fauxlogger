@@ -37,12 +37,20 @@ def msg(message, stack_offset=1):
     stack_offset = max(stack_len, timecode_len) - stack_len
     timecode_offset = max(stack_len, timecode_len) - timecode_len
 
-    message_list = [line.strip() for line in message.split("\n")]
-    if len(message_list) == 1:
-        message_list.append("")
+    match message:
+        case int():
+            message_list = [str(message)]
+        case list():
+            message_list = message
+        case dict():
+            message_list = [f"{key}: {value}" for key, value in sorted(message.items())]
+        case _:
+            message_list = [line.strip() for line in message.split("\n")]
 
     with msg_lock:
-        for idx, msg_line in enumerate(message_list):
+        for idx, msg_line in enumerate(
+            (message_list + [""])[: max(2, len(message_list))]
+        ):
             if idx > 1:
                 print(f"{' ' * max(timecode_len, stack_len)}{msg_line}")
             elif idx == 1:
