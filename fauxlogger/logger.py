@@ -44,7 +44,7 @@ def msg(message, stack_offset=1):
             message_list = message
         case dict():
             message_list = [
-                f"'{key}': {value}{type(value)}"
+                f"'{key}': {type(value)}: '{value}'"
                 for key, value in sorted(message.items())
             ]
         case _:
