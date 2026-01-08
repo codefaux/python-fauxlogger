@@ -1,2 +1,3 @@
 build/**
 fauxlogger.egg-info/**
+tests/__pycache__/**

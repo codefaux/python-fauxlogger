@@ -5,3 +5,11 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "fauxlogger"
 version = "0.1.2"
+
+[tool.pytest.ini_options]
+addopts = "-s"
+
+[project.optional-dependencies]
+test = [
+    "pytest>=9.0",
+]
