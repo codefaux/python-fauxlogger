@@ -52,15 +52,18 @@ def msg(message, stack_offset=1, target=sys.stdout):
             message_list = [line.strip() for line in message.split("\n")]
 
     with msg_lock:
-        for idx, msg_line in enumerate(
-            (message_list + [""])[: max(2, len(message_list))]
-        ):
+        for idx in range(0, max(3, len(message_list) + 1)):
+            msg_line = message_list[idx] if idx <= (len(message_list) - 1) else ""
             if idx > 1:
-                print(f"{' ' * max(timecode_len, stack_len)}{msg_line}", file=target)
+                if len(msg_line):
+                    print(
+                        f"{' ' * max(timecode_len, stack_len)}{msg_line}", file=target
+                    )
+                else:
+                    print("", file=target)
             elif idx == 1:
                 print(
                     f"{timecode_prepend}{' ' * timecode_offset}{msg_line}", file=target
                 )
             else:
                 print(f"{stack_prepend}{' ' * stack_offset}{msg_line}", file=target)
-        print("\n", file=target)
