@@ -1,0 +1,3 @@
+{
+  "vscodeRadonLinter.radonExecutable": "./.venv/bin/radon"
+}

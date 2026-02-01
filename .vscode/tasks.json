@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Python: pip-compile",
+      "type": "shell",
+      "command": "pip-compile --strip-extras",
+      "group": "build"
+    }
+  ]
+}
