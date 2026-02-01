@@ -1,5 +1,6 @@
 import inspect
 import re
+import sys
 from datetime import datetime
 from threading import Lock
 
@@ -22,7 +23,7 @@ _GREY = "\033[90m"
 _RESET = "\033[0m"
 
 
-def msg(message, stack_offset=1):
+def msg(message, stack_offset=1, target=sys.stdout):
     frame = inspect.stack()[stack_offset]
     module = inspect.getmodule(frame[0])
     caller_name = frame.function
@@ -55,9 +56,11 @@ def msg(message, stack_offset=1):
             (message_list + [""])[: max(2, len(message_list))]
         ):
             if idx > 1:
-                print(f"{' ' * max(timecode_len, stack_len)}{msg_line}")
+                print(f"{' ' * max(timecode_len, stack_len)}{msg_line}", file=target)
             elif idx == 1:
-                print(f"{timecode_prepend}{' ' * timecode_offset}{msg_line}")
+                print(
+                    f"{timecode_prepend}{' ' * timecode_offset}{msg_line}", file=target
+                )
             else:
-                print(f"{stack_prepend}{' ' * stack_offset}{msg_line}")
-        print("\n")
+                print(f"{stack_prepend}{' ' * stack_offset}{msg_line}", file=target)
+        print("\n", file=target)
